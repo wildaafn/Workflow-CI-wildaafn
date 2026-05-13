@@ -20,12 +20,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mlflow==2.19.0 virtualenv
+          pip install mlflow==2.19.0 virtualenv scikit-learn pandas
 
       - name: Run MLProject
         run: |
           cd MLProject
-          python -m mlflow run . --env-manager=virtualenv
+          python -m mlflow run . --env-manager=local
 
       - name: Save Artifacts
         run: |
@@ -48,5 +48,5 @@ jobs:
           cd MLProject
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
           # Build docker using mlflow
-          mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/ml-model:latest" --env-manager=virtualenv
+          mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/ml-model:latest" --env-manager=local
           docker push "$DOCKER_USER/ml-model:latest"
