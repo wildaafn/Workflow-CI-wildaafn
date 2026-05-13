@@ -1,0 +1,10 @@
+name: breast-cancer-classifier
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - scikit-learn
+      - pandas
+      - mlflow==2.19.0

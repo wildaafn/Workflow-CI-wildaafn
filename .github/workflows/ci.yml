@@ -1,0 +1,52 @@
+name: ML Workflow CI
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'MLProject/**'
+
+jobs:
+  run-mlproject:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install mlflow==2.19.0 virtualenv
+
+      - name: Run MLProject
+        run: |
+          cd MLProject
+          python -m mlflow run . --env-manager=virtualenv
+
+      - name: Save Artifacts
+        run: |
+          # Simpan artifact mlflow
+          tar -cvf mlruns.tar mlruns
+          
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mlruns-artifact
+          path: mlruns.tar
+
+      - name: Build and Push Docker Image
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          # Dapatkan RUN_ID dari mlruns
+          RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | head -n 1)
+          cd MLProject
+          # Note: this requires docker to be running.
+          # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+          # mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/breast-cancer-model:latest"
+          # docker push "$DOCKER_USER/breast-cancer-model:latest"
+          echo "Uncomment the lines above and configure your secrets to build and push docker image."
