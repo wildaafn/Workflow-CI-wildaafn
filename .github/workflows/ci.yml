@@ -29,8 +29,9 @@ jobs:
 
       - name: Save Artifacts
         run: |
+          cd MLProject
           # Simpan artifact mlflow
-          tar -cvf mlruns.tar mlruns
+          tar -cvf ../mlruns.tar mlruns
           
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
