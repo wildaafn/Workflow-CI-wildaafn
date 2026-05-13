@@ -45,8 +45,7 @@ jobs:
           # Dapatkan RUN_ID dari mlruns
           RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | head -n 1)
           cd MLProject
-          # Note: this requires docker to be running.
-          # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
-          # mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/breast-cancer-model:latest"
-          # docker push "$DOCKER_USER/breast-cancer-model:latest"
-          echo "Uncomment the lines above and configure your secrets to build and push docker image."
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+          # Build docker using mlflow
+          mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/ml-model:latest" --env-manager=virtualenv
+          docker push "$DOCKER_USER/ml-model:latest"
