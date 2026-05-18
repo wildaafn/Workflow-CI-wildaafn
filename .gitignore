@@ -1,0 +1,6 @@
+# Ignore MLflow run outputs
+MLProject/mlruns/
+mlruns.tar
+
+# Ignore system files
+.DS_Store

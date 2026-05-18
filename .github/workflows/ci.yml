@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
     paths:
       - 'MLProject/**'
+  workflow_dispatch:
 
 jobs:
   run-mlproject:
@@ -46,7 +46,7 @@ jobs:
         run: |
           cd MLProject
           # Dapatkan RUN_ID dari mlruns
-          RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | head -n 1)
+          RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | grep -v datasets | head -n 1)
           echo "RUN_ID: $RUN_ID"
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
           # Build docker using mlflow
