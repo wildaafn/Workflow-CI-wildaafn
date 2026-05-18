@@ -1,2 +1,2 @@
-Tautan Docker Hub: (Silakan ganti dengan link Docker Hub images Anda)
-Contoh: https://hub.docker.com/r/username/reponame
+Tautan Image Docker Hub:
+https://hub.docker.com/r/wildaafn/ml-model

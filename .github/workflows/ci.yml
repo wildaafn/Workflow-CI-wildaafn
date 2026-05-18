@@ -44,9 +44,10 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
+          cd MLProject
           # Dapatkan RUN_ID dari mlruns
           RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | head -n 1)
-          cd MLProject
+          echo "RUN_ID: $RUN_ID"
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
           # Build docker using mlflow
           mlflow models build-docker -m "runs:/$RUN_ID/model" -n "$DOCKER_USER/ml-model:latest" --env-manager=local
