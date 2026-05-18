@@ -45,6 +45,21 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           cd MLProject
+          # Cek apakah secrets sudah diatur
+          if [ -z "$DOCKER_USER" ] || [ -z "$DOCKER_PASSWORD" ]; then
+            echo "=========================================================================="
+            echo "🚨 ERROR: DOCKER_USERNAME atau DOCKER_PASSWORD belum diatur di GitHub Secrets!"
+            echo "Silakan ikuti langkah berikut untuk memperbaikinya:"
+            echo "1. Buka repositori Anda di GitHub."
+            echo "2. Masuk ke tab 'Settings' -> 'Secrets and variables' -> 'Actions'."
+            echo "3. Klik 'New repository secret'."
+            echo "4. Tambahkan secret berikut:"
+            echo "   - Nama: DOCKER_USERNAME  (isi dengan username Docker Hub Anda)"
+            echo "   - Nama: DOCKER_PASSWORD  (isi dengan password/token Docker Hub Anda)"
+            echo "5. Setelah ditambahkan, jalankan ulang workflow ini."
+            echo "=========================================================================="
+            exit 1
+          fi
           # Dapatkan RUN_ID dari mlruns
           RUN_ID=$(ls mlruns/0 | grep -v meta.yaml | grep -v datasets | head -n 1)
           echo "RUN_ID: $RUN_ID"
