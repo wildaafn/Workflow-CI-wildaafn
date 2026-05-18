@@ -6,6 +6,13 @@ An enterprise-grade MLOps repository implementing continuous integration (CI) fo
 
 ---
 
+## 📌 Ringkasan Proyek / Project Summary
+
+*   **Fungsi Medis (Medical Function):** Alur kerja MLOps ini mengambil dataset preprocessed breast cancer untuk melatih model Random Forest Classifier secara terstandarisasi, guna **mengklasifikasikan keganasan sel kanker payudara secara akurat**.
+*   **Fungsi Teknologi (Technical Function):** Menyediakan sistem **Continuous Integration (CI)** yang otomatis melatih model menggunakan MLflow, melacak parameter/metrik eksperimen, serta membungkus model ke dalam Docker Container dan mempublikasikannya ke Docker Hub (`ml-model:latest`) setiap kali kode di folder `MLProject` diperbarui.
+
+---
+
 ## 📂 Repository Structure
 
 ```bash
