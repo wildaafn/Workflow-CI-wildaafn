@@ -4,3 +4,9 @@ mlruns.tar
 
 # Ignore system files
 .DS_Store
+
+# Ignore monitoring runtime data & cache
+**/prometheus_data/
+**/__pycache__/
+*.log
+

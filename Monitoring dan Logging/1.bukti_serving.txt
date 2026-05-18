@@ -1,0 +1,5 @@
+Untuk mendapatkan bukti serving:
+1. Jalankan aplikasi monitoring dengan perintah: `python 3.prometheus_exporter.py`
+2. Buka browser dan akses http://localhost:8000/docs (untuk melihat FastAPI Swagger UI) atau jalankan `mlflow models serve -m "models:/NamaModel/Production" -p 5000` (untuk mlflow serve)
+3. Ambil tangkapan layar terminal atau browser yang menunjukkan model berhasil di-serving.
+4. Simpan gambar tangkapan layar tersebut di folder ini.
